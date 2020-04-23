@@ -134,6 +134,22 @@ class HomeView extends StatelessWidget {
               makePopularWidget('Popular on Netflix'),
               makePopularWidget('Trending now'),
               makeContinueWatching('Continue watching for Kharioki'),
+              bannerMovie(),
+              makeNetflixOrig('Netflix Originals'),
+              makePopularWidget('Watch It Again'),
+              makePopularWidget('New Releases'),
+              makePopularWidget("US Crime TV Programmes"),
+              makePopularWidget("American Programmes"),
+              makePopularWidget("Comedies"),
+              makePopularWidget("Romance Programmes"),
+              makePopularWidget("US Dysfunctional-family TV Programmes"),
+              makePopularWidget("European Films & Programmes"),
+              makePopularWidget("US Teen TV Programmes"),
+              makePopularWidget("Top Picks For Kalle"),
+              makePopularWidget("Documentaries"),
+              makePopularWidget("US TV Drama"),
+              makePopularWidget("Emotional Crime TV Programmes"),
+              makePopularWidget("Ensemble TV Programmes"),
             ],
           ),
         ),
@@ -141,7 +157,127 @@ class HomeView extends StatelessWidget {
     );
   }
 
+  Widget bannerMovie() {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              'Available Now',
+              style: topMenuStyle,
+            ),
+          ),
+          Container(
+            child: Image(
+              image: AssetImage(
+                'images/birdboxBanner.jpg',
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 4, bottom: 4),
+            color: Colors.black,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                FlatButton(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 8, bottom: 8),
+                    width: 140,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.play_arrow,
+                          color: Colors.black,
+                        ),
+                        Text(
+                          'Play',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                  color: Colors.white,
+                  onPressed: () {},
+                ),
+                FlatButton(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 8, bottom: 8),
+                    width: 140,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'My List',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                  ),
+                  color: Color(0xff4f4f4f),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget makeNetflixOrig(String title) {
+    return new Container(
+      padding: EdgeInsets.only(top: 30, left: 10),
+      height: 400,
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(title, style: topMenuStyle),
+                ]),
+          ),
+          Container(
+            height: 350,
+            child: ListView(
+                padding: EdgeInsets.only(right: 6),
+                scrollDirection: Axis.horizontal,
+                //shrinkWrap: true,
+                children: makeOriginals()),
+          )
+        ],
+      ),
+    );
+  }
+
   int counter = 0;
+  List<Widget> makeOriginals() {
+    List<Container> movieList = [];
+    for (int i = 0; i < 6; i++) {
+      counter++;
+      movieList.add(new Container(
+        margin: EdgeInsets.only(right: 10, top: 10),
+        width: 200,
+        decoration: new BoxDecoration(
+          image: new DecorationImage(
+              image: new AssetImage("images/" + counter.toString() + ".jpg"),
+              fit: BoxFit.fitHeight),
+        ),
+      ));
+      if (counter == 12) {
+        counter = 0;
+      }
+    }
+    return movieList;
+  }
 
   Widget makePopularWidget(String title) {
     return Container(
@@ -198,7 +334,7 @@ class HomeView extends StatelessWidget {
       counter++;
       movieList.add(
         Container(
-          color: Colors.red,
+          color: Colors.black,
           height: 200,
           padding: EdgeInsets.all(3),
           child: Image(
